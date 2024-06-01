@@ -4,34 +4,39 @@
 # creates or attaches to tmux session for selected or common directories
 
 # requires $DATA to be set
-directories=(
-    ~/studies/
-    ~/dev/
-    ~/documents/
-    ~/projects/
-    ~/templates/
+subdirs=(
+~/studies/
+~/dev/
+~/documents/
+~/projects/
+~/templates/
+)
+
+dirs=(
+~/.config/nvim/
+~/.local/bin/
 )
 
 if [[ $# -eq 1 ]]; then # 1st argument is used as directory
-    selected=$1
+selected=$1
 else # otherwise, use fzf to select directory with depth 1
-    selected=$(find "${directories[@]}" -mindepth 1 -maxdepth 1 -type d | fzf)
+selected=$( echo $(find "${subdirs[@]}" -mindepth 1 -maxdepth 1 -type d ; echo "${dirs[@]}") | tr " " "\n" | fzf)
 fi
 
 if [[ -z $selected ]]; then # no directory selected -> exit
-    exit 0
+exit 0
 fi
 
 selected_name=$(basename "$selected" | tr . _) # session name uses directory name
 tmux_running=$(pgrep tmux) # check for running instance
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then # no running tmux session -> create & attach
-    tmux new-session -s $selected_name -c $selected
-    exit 0
+tmux new-session -s $selected_name -c $selected
+exit 0
 fi
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then # session does not exist -> create
-    tmux new-session -ds $selected_name -c $selected
+tmux new-session -ds $selected_name -c $selected
 fi
 
 tmux switch-client -t $selected_name # switch to session

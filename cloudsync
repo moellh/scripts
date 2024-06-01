@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rclone bisync -v "henmoell_gdrive:/" "/home/moellh/drive/" --check-access --check-filename .RCLONE_TEST --fast-list --drive-skip-shortcuts --drive-acknowledge-abuse --drive-skip-gdocs --drive-skip-dangling-shortcuts

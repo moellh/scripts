@@ -5,7 +5,7 @@
 
 # notes:
 # - results in the same session name for directories with the same name
-# - currently only supports a single session :(
+# - only supports a single terminal session
 
 # requires $DATA to be set
 subdirs=(

@@ -3,6 +3,10 @@
 # tmux-sessionizer - original script by thePrimeagen
 # creates or attaches to tmux session for selected or common directories
 
+# notes:
+# - results in the same session name for directories with the same name
+# - currently only supports a single session :(
+
 # requires $DATA to be set
 subdirs=(
 ~/studies/

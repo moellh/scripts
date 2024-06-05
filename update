@@ -11,6 +11,9 @@ yay -Scc
 echo "=== Removing unused packages ==="
 yay -Rsn $(yay -Qdtq) 
 
+echo "=== Updating cloud storage ==="
+cloudsync
+
 used_space_after=$(df --output=used / | tail -n 1) # in KB
 
 echo "=== Stats ==="

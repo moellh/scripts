@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# locate files using the arguments, select one with fzf, and open it in nvim
+
+echo $@
+
+nvim $(locate $@ | fzf)
